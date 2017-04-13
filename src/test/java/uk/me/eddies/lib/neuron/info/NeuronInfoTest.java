@@ -10,10 +10,15 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.me.eddies.lib.neuron.utility.RegexMatcher;
 
 public class NeuronInfoTest {
+	
+	private static final Logger LOG
+			= LoggerFactory.getLogger(NeuronInfoTest.class);
 
 	private NeuronInfo systemUnderTest;
 
@@ -29,6 +34,6 @@ public class NeuronInfoTest {
 		assertThat(result, anyOf(new RegexMatcher("^\\d+\\.\\d+\\.\\d+$"),
 				new RegexMatcher("^0-iss\\d+\\.\\d+$"),
 				new RegexMatcher("^\\d+\\.\\d+-dev\\.\\d+$")));
-		System.out.println("Version number is " + result);
+		LOG.info("Version number is {}.", result);
 	}
 }
