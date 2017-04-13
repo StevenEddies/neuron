@@ -3,9 +3,11 @@
 package uk.me.eddies.lib.neuron.neuralnet;
 
 import static java.util.Collections.unmodifiableCollection;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 
 /**
  * Represents a neuron, either hidden or output, whose value is computed from
@@ -20,7 +22,8 @@ public class ComputedNeuron implements Neuron {
 			ActivationFunction activationFunction) {
 		this.connections = unmodifiableCollection(
 				new LinkedHashSet<>(connections));
-		this.activationFunction = activationFunction;
+		this.connections.forEach(Objects::requireNonNull);
+		this.activationFunction = requireNonNull(activationFunction);
 	}
 	
 	@Override

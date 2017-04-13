@@ -53,4 +53,19 @@ public class ComputedNeuronTest {
 		
 		shouldComputeCorrectValue();
 	}
+	
+	@Test(expected=NullPointerException.class)
+	public void shouldFailToConstructWithoutConnectionCollection() {
+		new ComputedNeuron(null, activationFunction);
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void shouldFailToConstructWithoutActivationFunction() {
+		new ComputedNeuron(Arrays.asList(connection1, connection2), null);
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void shouldFailToConstructWithNullConnection() {
+		new ComputedNeuron(Arrays.asList(connection1, null), activationFunction);
+	}
 }

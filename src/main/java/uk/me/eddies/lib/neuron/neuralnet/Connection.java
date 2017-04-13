@@ -2,6 +2,8 @@
 
 package uk.me.eddies.lib.neuron.neuralnet;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents a one-directional connection to another neuron. The
  * {@link Connection} refers to the connectee, and the connector may refer to
@@ -13,7 +15,7 @@ public class Connection {
 	private double weight = 0d;
 	
 	public Connection(Neuron connectee) {
-		this.connectee = connectee;
+		this.connectee = requireNonNull(connectee);
 	}
 	
 	public double getWeight() {

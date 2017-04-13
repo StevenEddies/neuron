@@ -44,4 +44,9 @@ public class ConnectionTest {
 		assertThat(systemUnderTest.getWeightedConnecteeValue(),
 				equalTo(SET_WEIGHT * CONNECTEE_VALUE));
 	}
+	
+	@Test(expected=NullPointerException.class)
+	public void shouldFailToConstructWithoutConnectee() {
+		new Connection(null);
+	}
 }
