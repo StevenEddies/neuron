@@ -12,6 +12,7 @@ import org.mockito.Mock;
 
 public class NeuralNetworkTest {
 
+	@Mock private NetworkConfiguration configuration;
 	@Mock private MutableInterfaceNeurons inputs;
 	@Mock private InterfaceNeurons outputs;
 	@Mock private Connections allConnections;
@@ -21,7 +22,12 @@ public class NeuralNetworkTest {
 	@Before
 	public void setUp() {
 		initMocks(this);
-		systemUnderTest = new NeuralNetwork(inputs, outputs, allConnections);
+		systemUnderTest = new NeuralNetwork(configuration, inputs, outputs, allConnections);
+	}
+	
+	@Test
+	public void shouldMakeConfigurationAccessible() {
+		assertThat(systemUnderTest.getConfiguration(), equalTo(configuration));
 	}
 	
 	@Test
@@ -40,17 +46,22 @@ public class NeuralNetworkTest {
 	}
 
 	@Test(expected=NullPointerException.class)
+	public void shouldFailToConstructWithNullConfiguration() {
+		new NeuralNetwork(null, inputs, outputs, allConnections);
+	}
+
+	@Test(expected=NullPointerException.class)
 	public void shouldFailToConstructWithNullInputs() {
-		new NeuralNetwork(null, outputs, allConnections);
+		new NeuralNetwork(configuration, null, outputs, allConnections);
 	}
 	
 	@Test(expected=NullPointerException.class)
 	public void shouldFailToConstructWithNullOutputs() {
-		new NeuralNetwork(inputs, null, allConnections);
+		new NeuralNetwork(configuration, inputs, null, allConnections);
 	}
 	
 	@Test(expected=NullPointerException.class)
 	public void shouldFailToConstructWithNullConnections() {
-		new NeuralNetwork(inputs, outputs, null);
+		new NeuralNetwork(configuration, inputs, outputs, null);
 	}
 }
