@@ -41,6 +41,13 @@ public class ThresholdActivationTest {
 		assertThat(systemUnderTest.applyAsDouble(100d), equalTo(eachPolarisation.getMaximum()));
 	}
 	
+	@Test
+	@Parameters(source=Polarisation.class)
+	public void shouldPublishPolarisation(Polarisation eachPolarisation) {
+		systemUnderTest = new ThresholdActivation(eachPolarisation);
+		assertThat(systemUnderTest.getPolarisation(), equalTo(eachPolarisation));
+	}
+	
 	@Test(expected=NullPointerException.class)
 	public void shouldFailToConstructWithoutPolarisation() {
 		new ThresholdActivation(null);
