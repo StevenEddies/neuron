@@ -27,4 +27,8 @@ public enum Polarisation {
 	public double getMaximum() {
 		return maximum;
 	}
+	
+	public double getRange() {
+		return getMaximum() - getMinimum();
+	}
 }
