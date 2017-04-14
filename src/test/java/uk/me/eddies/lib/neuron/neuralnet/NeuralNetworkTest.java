@@ -14,13 +14,14 @@ public class NeuralNetworkTest {
 
 	@Mock private MutableInterfaceNeurons inputs;
 	@Mock private InterfaceNeurons outputs;
+	@Mock private Connections allConnections;
 	
 	private NeuralNetwork systemUnderTest;
 	
 	@Before
 	public void setUp() {
 		initMocks(this);
-		systemUnderTest = new NeuralNetwork(inputs, outputs);
+		systemUnderTest = new NeuralNetwork(inputs, outputs, allConnections);
 	}
 	
 	@Test
@@ -32,14 +33,24 @@ public class NeuralNetworkTest {
 	public void shouldMakeOutputsAccessible() {
 		assertThat(systemUnderTest.getOutputs(), equalTo(outputs));
 	}
+	
+	@Test
+	public void shouldMakeConnectionsAccessible() {
+		assertThat(systemUnderTest.getAllConnections(), equalTo(allConnections));
+	}
 
 	@Test(expected=NullPointerException.class)
 	public void shouldFailToConstructWithNullInputs() {
-		new NeuralNetwork(null, outputs);
+		new NeuralNetwork(null, outputs, allConnections);
 	}
 	
 	@Test(expected=NullPointerException.class)
 	public void shouldFailToConstructWithNullOutputs() {
-		new NeuralNetwork(inputs, null);
+		new NeuralNetwork(inputs, null, allConnections);
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void shouldFailToConstructWithNullConnections() {
+		new NeuralNetwork(inputs, outputs, null);
 	}
 }

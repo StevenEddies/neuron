@@ -11,10 +11,12 @@ public class NeuralNetwork {
 	
 	private final MutableInterfaceNeurons inputs;
 	private final InterfaceNeurons outputs;
+	private final Connections allConnections;
 	
-	public NeuralNetwork(MutableInterfaceNeurons inputs, InterfaceNeurons outputs) {
+	public NeuralNetwork(MutableInterfaceNeurons inputs, InterfaceNeurons outputs, Connections allConnections) {
 		this.inputs = requireNonNull(inputs);
 		this.outputs = requireNonNull(outputs);
+		this.allConnections = requireNonNull(allConnections);
 	}
 
 	public MutableInterfaceNeurons getInputs() {
@@ -23,5 +25,9 @@ public class NeuralNetwork {
 
 	public InterfaceNeurons getOutputs() {
 		return outputs;
+	}
+
+	public Connections getAllConnections() {
+		return allConnections;
 	}
 }
