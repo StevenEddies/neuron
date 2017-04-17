@@ -97,13 +97,13 @@ public class FeedforwardConfigurationTest {
 	
 	@Test
 	public void shouldMakeLayerConfigurationsAccessible() {
-		assertThat(systemUnderTest.getLayerConfigurations(), contains(Arrays.asList(
+		assertThat(systemUnderTest.getLayers(), contains(Arrays.asList(
 				equalTo(layer1Config), equalTo(layer2Config), equalTo(layer3Config))));
 	}
 	
 	@Test(expected=UnsupportedOperationException.class)
 	public void shouldMakeLayerConfigurationsUnmodifiable() {
-		systemUnderTest.getLayerConfigurations().clear();
+		systemUnderTest.getLayers().clear();
 	}
 	
 	@Test
@@ -114,7 +114,7 @@ public class FeedforwardConfigurationTest {
 		
 		original.clear();
 		
-		assertThat(systemUnderTest.getLayerConfigurations(), contains(Arrays.asList(
+		assertThat(systemUnderTest.getLayers(), contains(Arrays.asList(
 				equalTo(layer1Config), equalTo(layer2Config), equalTo(layer3Config))));
 	}
 }

@@ -28,7 +28,7 @@ public class FeedforwardConfiguration implements NetworkConfiguration {
 		this.layerConfigs.forEach(Objects::requireNonNull);
 	}
 	
-	Collection<LayerConfiguration<?>> getLayerConfigurations() {
+	Collection<LayerConfiguration<?>> getLayers() {
 		return layerConfigs;
 	}
 
