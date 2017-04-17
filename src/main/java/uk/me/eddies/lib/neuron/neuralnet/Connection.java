@@ -29,4 +29,8 @@ public class Connection {
 	public double getWeightedConnecteeValue() {
 		return connectee.getValue() * getWeight();
 	}
+	
+	public Neuron getConnectee() {
+		return connectee;
+	}
 }

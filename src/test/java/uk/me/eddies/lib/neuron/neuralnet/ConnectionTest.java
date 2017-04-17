@@ -38,6 +38,11 @@ public class ConnectionTest {
 	}
 	
 	@Test
+	public void shouldMakeConnecteeAvailable() {
+		assertThat(systemUnderTest.getConnectee(), equalTo(connectee));
+	}
+	
+	@Test
 	public void shouldComputeWeightedValueOfConnectee() {
 		when(connectee.getValue()).thenReturn(CONNECTEE_VALUE);
 		systemUnderTest.setWeight(SET_WEIGHT);
