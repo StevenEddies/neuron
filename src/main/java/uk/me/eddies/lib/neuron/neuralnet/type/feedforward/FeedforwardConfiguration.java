@@ -27,6 +27,10 @@ public class FeedforwardConfiguration implements NetworkConfiguration {
 		this.layerConfigs = unmodifiableCollection(new LinkedHashSet<>(layerConfigs));
 		this.layerConfigs.forEach(Objects::requireNonNull);
 	}
+	
+	Collection<LayerConfiguration<?>> getLayerConfigurations() {
+		return layerConfigs;
+	}
 
 	@Override
 	public NeuralNetwork create() {

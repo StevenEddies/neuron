@@ -3,6 +3,7 @@
 package uk.me.eddies.lib.neuron.neuralnet.type.feedforward;
 
 import static java.util.Collections.emptyList;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
@@ -10,7 +11,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -90,5 +93,28 @@ public class FeedforwardConfigurationTest {
 	public void shouldFailToConstructWithNullLayerConfiguration() {
 		new FeedforwardConfiguration(Arrays.asList(
 				layer1Config, layer2Config, null));
+	}
+	
+	@Test
+	public void shouldMakeLayerConfigurationsAccessible() {
+		assertThat(systemUnderTest.getLayerConfigurations(), contains(Arrays.asList(
+				equalTo(layer1Config), equalTo(layer2Config), equalTo(layer3Config))));
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void shouldMakeLayerConfigurationsUnmodifiable() {
+		systemUnderTest.getLayerConfigurations().clear();
+	}
+	
+	@Test
+	public void shouldInsulateLayerConfigurationsFromInputCollectionChanges() {
+		List<LayerConfiguration<?>> original = new ArrayList<>(Arrays.asList(
+				layer1Config, layer2Config, layer3Config));
+		systemUnderTest = new FeedforwardConfiguration(original);
+		
+		original.clear();
+		
+		assertThat(systemUnderTest.getLayerConfigurations(), contains(Arrays.asList(
+				equalTo(layer1Config), equalTo(layer2Config), equalTo(layer3Config))));
 	}
 }
