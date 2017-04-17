@@ -2,6 +2,7 @@
 
 package uk.me.eddies.lib.neuron.neuralnet;
 
+import static org.hamcrest.Matchers.emptyIterable;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -28,5 +29,10 @@ public class InputNeuronTest {
 	public void shouldRetainSetValue() {
 		systemUnderTest.setValue(SET_VALUE);
 		assertThat(systemUnderTest.getValue(), equalTo(SET_VALUE));
+	}
+	
+	@Test
+	public void shouldHaveNoConnections() {
+		assertThat(systemUnderTest.getConnections(), emptyIterable());
 	}
 }

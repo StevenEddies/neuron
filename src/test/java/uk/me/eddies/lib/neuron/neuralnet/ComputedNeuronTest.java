@@ -2,8 +2,11 @@
 
 package uk.me.eddies.lib.neuron.neuralnet;
 
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -54,6 +57,17 @@ public class ComputedNeuronTest {
 		shouldComputeCorrectValue();
 	}
 	
+	@Test
+	public void shouldMakeConnectionsAvailable() {
+		assertThat(systemUnderTest.getConnections(), contains(Arrays.asList(
+				sameInstance(connection1), sameInstance(connection2))));
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void shouldDisallowChangesToReturnedConnections() {
+		systemUnderTest.getConnections().clear();
+	}
+	
 	@Test(expected=NullPointerException.class)
 	public void shouldFailToConstructWithoutConnectionCollection() {
 		new ComputedNeuron(null, activationFunction);
@@ -67,5 +81,21 @@ public class ComputedNeuronTest {
 	@Test(expected=NullPointerException.class)
 	public void shouldFailToConstructWithNullConnection() {
 		new ComputedNeuron(Arrays.asList(connection1, null), activationFunction);
+	}
+	
+	@Test
+	public void shouldConstructConnectionsForGivenConnecteeNeurons() {
+		Neuron neuron1 = mock(Neuron.class);
+		Neuron neuron2 = mock(Neuron.class);
+		systemUnderTest = ComputedNeuron.makeWithConnections(
+				Arrays.asList(neuron1, neuron2), activationFunction);
+		
+		systemUnderTest.getConnections().forEach(c -> c.setWeight(1.0));
+		when(neuron1.getValue()).thenReturn(CONNECTION_1_VALUE);
+		when(neuron2.getValue()).thenReturn(CONNECTION_2_VALUE);
+		when(activationFunction.applyAsDouble(CONNECTION_1_VALUE + CONNECTION_2_VALUE))
+				.thenReturn(ACTIVATED_VALUE);
+		
+		assertThat(systemUnderTest.getValue(), equalTo(ACTIVATED_VALUE));
 	}
 }

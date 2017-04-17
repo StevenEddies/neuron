@@ -2,6 +2,7 @@
 
 package uk.me.eddies.lib.neuron.neuralnet;
 
+import static org.hamcrest.Matchers.emptyIterable;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -20,5 +21,10 @@ public class BiasNeuronTest {
 	@Test
 	public void shouldHaveUnityValue() {
 		assertThat(systemUnderTest.getValue(), equalTo(1d));
+	}
+	
+	@Test
+	public void shouldHaveNoConnections() {
+		assertThat(systemUnderTest.getConnections(), emptyIterable());
 	}
 }

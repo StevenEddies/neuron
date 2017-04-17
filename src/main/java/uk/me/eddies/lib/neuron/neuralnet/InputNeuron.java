@@ -2,6 +2,10 @@
 
 package uk.me.eddies.lib.neuron.neuralnet;
 
+import static java.util.Collections.emptySet;
+
+import java.util.Collection;
+
 /**
  * Represents an input neuron for a network. Its value is set manually.
  */
@@ -16,5 +20,10 @@ public class InputNeuron implements Neuron {
 	
 	public void setValue(double value) {
 		this.value = value;
+	}
+	
+	@Override
+	public Collection<Connection> getConnections() {
+		return emptySet();
 	}
 }

@@ -4,6 +4,7 @@ package uk.me.eddies.lib.neuron.neuralnet;
 
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.toList;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -26,11 +27,23 @@ public class ComputedNeuron implements Neuron {
 		this.activationFunction = requireNonNull(activationFunction);
 	}
 	
+	public static ComputedNeuron makeWithConnections(
+			Collection<Neuron> connectedNeurons, ActivationFunction activationFunction) {
+		Collection<Connection> connections = connectedNeurons.stream()
+				.map(Connection::new).collect(toList());
+		return new ComputedNeuron(connections, activationFunction);
+	}
+	
 	@Override
 	public double getValue() {
 		double inputValue = connections.stream()
 				.mapToDouble(Connection::getWeightedConnecteeValue)
 				.sum();
 		return activationFunction.applyAsDouble(inputValue);
+	}
+	
+	@Override
+	public Collection<Connection> getConnections() {
+		return connections;
 	}
 }
