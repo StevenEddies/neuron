@@ -4,14 +4,12 @@ package uk.me.eddies.lib.neuron.neuralnet.type.feedforward;
 
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.stream.Collectors.toCollection;
-
 import java.util.Collection;
 import java.util.Deque;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Optional;
-
 import uk.me.eddies.lib.neuron.neuralnet.Connections;
 import uk.me.eddies.lib.neuron.neuralnet.NetworkConfiguration;
 import uk.me.eddies.lib.neuron.neuralnet.NeuralNetwork;
@@ -22,12 +20,12 @@ import uk.me.eddies.lib.neuron.neuralnet.NeuralNetwork;
 public class FeedforwardConfiguration implements NetworkConfiguration {
 
 	private final Collection<LayerConfiguration<?>> layerConfigs;
-	
+
 	public FeedforwardConfiguration(Collection<LayerConfiguration<?>> layerConfigs) {
 		this.layerConfigs = unmodifiableCollection(new LinkedHashSet<>(layerConfigs));
 		this.layerConfigs.forEach(Objects::requireNonNull);
 	}
-	
+
 	Collection<LayerConfiguration<?>> getLayers() {
 		return layerConfigs;
 	}

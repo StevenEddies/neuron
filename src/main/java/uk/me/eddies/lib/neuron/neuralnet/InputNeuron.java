@@ -3,7 +3,6 @@
 package uk.me.eddies.lib.neuron.neuralnet;
 
 import static java.util.Collections.emptySet;
-
 import java.util.Collection;
 
 /**
@@ -12,16 +11,16 @@ import java.util.Collection;
 public class InputNeuron implements Neuron {
 
 	private double value = 0d;
-	
+
 	@Override
 	public double getValue() {
 		return value;
 	}
-	
+
 	public void setValue(double value) {
 		this.value = value;
 	}
-	
+
 	@Override
 	public Collection<Connection> getConnections() {
 		return emptySet();

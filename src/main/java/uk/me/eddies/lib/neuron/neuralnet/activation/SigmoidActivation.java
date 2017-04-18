@@ -3,7 +3,6 @@
 package uk.me.eddies.lib.neuron.neuralnet.activation;
 
 import static java.util.Objects.requireNonNull;
-
 import uk.me.eddies.lib.neuron.neuralnet.ActivationFunction;
 
 /**
@@ -20,7 +19,7 @@ public class SigmoidActivation implements ActivationFunction {
 	public Polarisation getPolarisation() {
 		return polarisation;
 	}
-	
+
 	@Override
 	public double applyAsDouble(double input) {
 		double denominator = 1 + Math.exp(-input);

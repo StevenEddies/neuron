@@ -8,12 +8,12 @@ import static java.util.Objects.requireNonNull;
  * Represents a neural network.
  */
 public class NeuralNetwork {
-	
+
 	private final NetworkConfiguration configuration;
 	private final MutableInterfaceNeurons inputs;
 	private final InterfaceNeurons outputs;
 	private final Connections allConnections;
-	
+
 	public NeuralNetwork(NetworkConfiguration configuration, MutableInterfaceNeurons inputs,
 			InterfaceNeurons outputs, Connections allConnections) {
 		this.configuration = requireNonNull(configuration);

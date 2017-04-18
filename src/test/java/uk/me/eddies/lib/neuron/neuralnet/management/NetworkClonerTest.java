@@ -7,20 +7,17 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
-
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-
 import uk.me.eddies.lib.neuron.neuralnet.Connections;
 import uk.me.eddies.lib.neuron.neuralnet.MutableInterfaceNeurons;
 import uk.me.eddies.lib.neuron.neuralnet.NetworkConfiguration;
 import uk.me.eddies.lib.neuron.neuralnet.NeuralNetwork;
 
 public class NetworkClonerTest {
-	
+
 	@Mock private NeuralNetwork originalNetwork;
 	@Mock private NeuralNetwork newNetwork;
 	@Mock private NetworkConfiguration configuration;
@@ -30,9 +27,9 @@ public class NetworkClonerTest {
 	@Mock private Connections newConnections;
 	@Mock private List<Double> weights;
 	@Mock private List<Double> inputs;
-	
+
 	private NetworkCloner systemUnderTest;
-	
+
 	@Before
 	public void setUp() {
 		initMocks(this);
@@ -44,32 +41,32 @@ public class NetworkClonerTest {
 		when(newNetwork.getAllConnections()).thenReturn(newConnections);
 		when(originalInputs.getValues()).thenReturn(inputs);
 		when(originalConnections.getWeights()).thenReturn(weights);
-		
+
 		systemUnderTest = new NetworkCloner();
 	}
-	
-	@Test(expected=NullPointerException.class)
+
+	@Test(expected = NullPointerException.class)
 	public void shouldFailToCloneNullNetwork() {
 		systemUnderTest.clone(null);
 	}
-	
-	@Test(expected=NullPointerException.class)
+
+	@Test(expected = NullPointerException.class)
 	public void shouldFailToCloneWhenConfigurationDoesNotProvideClonedStructure() {
 		when(configuration.create()).thenReturn(null);
 		systemUnderTest.clone(originalNetwork);
 	}
-	
+
 	@Test
 	public void shouldReturnClonedStructure() {
 		assertThat(systemUnderTest.clone(originalNetwork), sameInstance(newNetwork));
 	}
-	
+
 	@Test
 	public void shouldCloneWeights() {
 		systemUnderTest.clone(originalNetwork);
 		verify(newConnections).setWeights(weights);
 	}
-	
+
 	@Test
 	public void shouldCloneInputValues() {
 		systemUnderTest.clone(originalNetwork);

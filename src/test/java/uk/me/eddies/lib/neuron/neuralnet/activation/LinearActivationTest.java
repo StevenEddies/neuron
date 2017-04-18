@@ -4,11 +4,9 @@ package uk.me.eddies.lib.neuron.neuralnet.activation;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -16,16 +14,16 @@ import junitparams.Parameters;
 public class LinearActivationTest {
 
 	private LinearActivation systemUnderTest;
-	
+
 	@Before
 	public void setUp() {
 		systemUnderTest = new LinearActivation();
 	}
-	
+
 	public Object[] parametersForShouldReturnInput() {
 		return new Object[] { -100d, -1d, -0.01, 0d, 0.01, 1d, 100d };
 	}
-	
+
 	@Test
 	@Parameters
 	public void shouldReturnInput(double input) {

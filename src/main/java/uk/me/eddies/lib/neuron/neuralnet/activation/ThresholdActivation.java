@@ -3,7 +3,6 @@
 package uk.me.eddies.lib.neuron.neuralnet.activation;
 
 import static java.util.Objects.requireNonNull;
-
 import uk.me.eddies.lib.neuron.neuralnet.ActivationFunction;
 
 /**
@@ -20,13 +19,9 @@ public class ThresholdActivation implements ActivationFunction {
 	public Polarisation getPolarisation() {
 		return polarisation;
 	}
-	
+
 	@Override
 	public double applyAsDouble(double input) {
-		if (input > 0) {
-			return polarisation.getMaximum();
-		} else {
-			return polarisation.getMinimum();
-		}
+		return (input > 0) ? polarisation.getMaximum() : polarisation.getMinimum();
 	}
 }

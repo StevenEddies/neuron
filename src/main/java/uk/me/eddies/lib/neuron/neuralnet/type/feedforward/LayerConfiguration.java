@@ -4,7 +4,6 @@ package uk.me.eddies.lib.neuron.neuralnet.type.feedforward;
 
 import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Stream.concat;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -13,7 +12,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import uk.me.eddies.lib.neuron.neuralnet.ActivationFunction;
 import uk.me.eddies.lib.neuron.neuralnet.BiasNeuron;
 import uk.me.eddies.lib.neuron.neuralnet.Connection;
@@ -29,7 +27,7 @@ public abstract class LayerConfiguration<N extends Neuron> {
 	private final int size;
 	private final boolean bias;
 	private final Function<Collection<Neuron>, N> neuronFactory;
-	
+
 	protected LayerConfiguration(int size, boolean bias, Function<Collection<Neuron>, N> neuronFactory) {
 		this.size = size;
 		this.bias = bias;
@@ -37,15 +35,15 @@ public abstract class LayerConfiguration<N extends Neuron> {
 	}
 
 	public Layer buildLayer(Optional<Layer> previousLayer) {
-		
+
 		Collection<Neuron> previousLayerNeurons = previousLayer
 				.map(Layer::getNeurons)
 				.orElse(Collections.emptySet());
-		
+
 		Collection<N> normalNeurons = createNormalNeurons(previousLayerNeurons);
 		Collection<Neuron> neurons = concat(normalNeurons.stream(), createBiasNeuron())
 				.collect(toCollection(LinkedHashSet::new));
-		
+
 		return new Layer(
 				neurons,
 				findConnections(normalNeurons),
@@ -62,29 +60,26 @@ public abstract class LayerConfiguration<N extends Neuron> {
 	}
 
 	private Stream<Neuron> createBiasNeuron() {
-		Stream<Neuron> biasNeuron = bias ? Stream.of(new BiasNeuron()) : Stream.empty();
-		return biasNeuron;
+		return bias ? Stream.of(new BiasNeuron()) : Stream.empty();
 	}
-	
+
 	private Collection<Connection> findConnections(Collection<N> neurons) {
 		return neurons.stream()
 				.flatMap(n -> n.getConnections().stream())
 				.collect(Collectors.toCollection(LinkedHashSet::new));
 	}
-	
+
 	protected Optional<InterfaceNeurons> createOutputInterface(Collection<N> neurons) {
 		return Optional.empty();
 	}
-	
+
 	protected Optional<MutableInterfaceNeurons> createInputInterface(Collection<N> neurons) {
 		return Optional.empty();
 	}
-	
-	protected static <N extends Neuron>
-			Function<Collection<Neuron>, N> givenActivationFunction(
-					BiFunction<Collection<Neuron>, ActivationFunction, N> innerFactory,
-					ActivationFunction activationFunction
-	) {
+
+	protected static <N extends Neuron> Function<Collection<Neuron>, N> givenActivationFunction(
+			BiFunction<Collection<Neuron>, ActivationFunction, N> innerFactory,
+			ActivationFunction activationFunction) {
 		return neurons -> innerFactory.apply(neurons, activationFunction);
 	}
 }

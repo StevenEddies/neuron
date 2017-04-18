@@ -8,7 +8,7 @@ import uk.me.eddies.lib.neuron.neuralnet.NeuralNetwork;
  * Responsible for cloning a {@link NeuralNetwork}.
  */
 public class NetworkCloner {
-	
+
 	public NeuralNetwork clone(NeuralNetwork originalNetwork) {
 		NeuralNetwork newNetwork = cloneStructure(originalNetwork);
 		cloneWeights(originalNetwork, newNetwork);
@@ -21,12 +21,10 @@ public class NetworkCloner {
 	}
 
 	private void cloneWeights(NeuralNetwork originalNetwork, NeuralNetwork newNetwork) {
-		newNetwork.getAllConnections().setWeights(
-				originalNetwork.getAllConnections().getWeights());
+		newNetwork.getAllConnections().setWeights(originalNetwork.getAllConnections().getWeights());
 	}
 
 	private void cloneInputs(NeuralNetwork originalNetwork, NeuralNetwork newNetwork) {
-		newNetwork.getInputs().setValues(
-				originalNetwork.getInputs().getValues());
+		newNetwork.getInputs().setValues(originalNetwork.getInputs().getValues());
 	}
 }

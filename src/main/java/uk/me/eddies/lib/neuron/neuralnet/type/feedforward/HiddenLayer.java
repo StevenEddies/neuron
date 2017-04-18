@@ -3,7 +3,6 @@
 package uk.me.eddies.lib.neuron.neuralnet.type.feedforward;
 
 import static java.util.Objects.requireNonNull;
-
 import uk.me.eddies.lib.neuron.neuralnet.ActivationFunction;
 import uk.me.eddies.lib.neuron.neuralnet.ComputedNeuron;
 
@@ -13,8 +12,7 @@ import uk.me.eddies.lib.neuron.neuralnet.ComputedNeuron;
 public class HiddenLayer extends LayerConfiguration<ComputedNeuron> {
 
 	public HiddenLayer(int size, ActivationFunction activationFunction) {
-		super(size, true,
-				givenActivationFunction(ComputedNeuron::makeWithConnections, activationFunction));
+		super(size, true, givenActivationFunction(ComputedNeuron::makeWithConnections, activationFunction));
 		requireNonNull(activationFunction);
 	}
 }

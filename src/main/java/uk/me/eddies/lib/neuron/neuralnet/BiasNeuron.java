@@ -3,7 +3,6 @@
 package uk.me.eddies.lib.neuron.neuralnet;
 
 import static java.util.Collections.emptySet;
-
 import java.util.Collection;
 
 /**
@@ -15,7 +14,7 @@ public class BiasNeuron implements Neuron {
 	public double getValue() {
 		return 1d;
 	}
-	
+
 	@Override
 	public Collection<Connection> getConnections() {
 		return emptySet();

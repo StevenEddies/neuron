@@ -9,10 +9,8 @@ import java.util.Properties;
 
 public class NeuronInfo {
 
-	private static final URL BUILD_PROPERTIES_RESOURCE =
-			NeuronInfo.class.getResource("build.properties");
-	private static final String VERSION_PROPERTY =
-			"uk.me.eddies.lib.neuron.info.version";
+	private static final URL BUILD_PROPERTIES_RESOURCE = NeuronInfo.class.getResource("build.properties");
+	private static final String VERSION_PROPERTY = "uk.me.eddies.lib.neuron.info.version";
 
 	private Properties buildProperties;
 
