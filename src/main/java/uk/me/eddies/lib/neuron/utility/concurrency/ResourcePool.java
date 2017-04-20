@@ -14,8 +14,8 @@ import java.util.concurrent.BlockingQueue;
  */
 public class ResourcePool<ResourceT> {
 
-	private BlockingQueue<ResourceT> available;
-	private Set<ResourceT> acquired;
+	private final BlockingQueue<ResourceT> available;
+	private final Set<ResourceT> acquired;
 
 	public ResourcePool(Collection<ResourceT> resources) {
 		available = new ArrayBlockingQueue<>(resources.size(), true, resources);
