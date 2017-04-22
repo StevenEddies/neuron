@@ -36,4 +36,8 @@ public class Connections {
 			connections.get(i).setWeight(weights.get(i));
 		}
 	}
+
+	public int getCount() {
+		return connections.size();
+	}
 }

@@ -68,6 +68,11 @@ public class ConnectionsTest {
 		shouldSetWeightsOfAllConnections();
 	}
 
+	@Test
+	public void shouldReportCountOfConnections() {
+		assertThat(systemUnderTest.getCount(), equalTo(2));
+	}
+
 	@Test(expected = NullPointerException.class)
 	public void shouldFailToSetWeightsWithNullCollection() {
 		systemUnderTest.setWeights(null);
