@@ -5,7 +5,7 @@ package uk.me.eddies.lib.neuron.neuralnet.management;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
 import java.util.Collection;
-import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import uk.me.eddies.lib.neuron.neuralnet.NeuralNetwork;
 import uk.me.eddies.lib.neuron.utility.concurrency.ResourcePool;
 
@@ -21,8 +21,8 @@ public class NetworkPools {
 	}
 
 	public ResourcePool<NeuralNetwork> build(NeuralNetwork base, int poolSize) {
-		Collection<NeuralNetwork> clones = IntStream.range(0, poolSize)
-				.mapToObj(i -> base)
+		Collection<NeuralNetwork> clones = Stream.generate(() -> base)
+				.limit(poolSize)
 				.map(cloner::clone)
 				.collect(toSet());
 		return new ResourcePool<>(clones);
