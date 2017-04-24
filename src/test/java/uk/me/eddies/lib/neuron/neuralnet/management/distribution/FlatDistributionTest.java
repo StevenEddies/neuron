@@ -40,6 +40,14 @@ public class FlatDistributionTest {
 	}
 
 	@Test
+	public void shouldApproximateFixedDistributionWithEqualMinimumAndMaximum() {
+		systemUnderTest = new FlatDistribution(random, MAXIMUM, MAXIMUM);
+		when(random.nextDouble()).thenReturn(0d).thenReturn(1d);
+		assertThat(systemUnderTest.getAsDouble(), closeTo(MAXIMUM, ALLOWED_ERROR));
+		assertThat(systemUnderTest.getAsDouble(), closeTo(MAXIMUM, ALLOWED_ERROR));
+	}
+
+	@Test
 	public void shouldReturnMinimumOnLowestPossibleRandom() {
 		when(random.nextDouble()).thenReturn(0d);
 		assertThat(systemUnderTest.getAsDouble(), closeTo(MINIMUM, ALLOWED_ERROR));
@@ -69,7 +77,7 @@ public class FlatDistributionTest {
 
 	@Test
 	public void shouldStayWithinRequiredRangeUsingRealRandom() {
-		systemUnderTest = new FlatDistribution(new Random(), MINIMUM, MAXIMUM);
+		systemUnderTest = new FlatDistribution(MINIMUM, MAXIMUM);
 		for (int i = 0; i < 10000; i++) {
 			double result = systemUnderTest.getAsDouble();
 			assertThat(result, greaterThanOrEqualTo(MINIMUM));
