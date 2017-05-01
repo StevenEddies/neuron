@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 import uk.me.eddies.lib.neuron.neuralnet.NeuralNetwork;
 import uk.me.eddies.lib.neuron.utility.concurrency.ResourcePool;
+import uk.me.eddies.lib.neuron.utility.system.SystemInfo;
 
 /**
  * Factory for {@link ResourcePool}s whose resources are {@link NeuralNetwork}s.
@@ -26,5 +27,9 @@ public class NetworkPools {
 				.map(cloner::clone)
 				.collect(toSet());
 		return new ResourcePool<>(clones);
+	}
+
+	public ResourcePool<NeuralNetwork> build(NeuralNetwork base, SystemInfo systemInfo) {
+		return build(base, systemInfo.getProcessorCount());
 	}
 }
