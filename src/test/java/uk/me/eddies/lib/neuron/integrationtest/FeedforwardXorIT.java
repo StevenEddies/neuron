@@ -27,10 +27,9 @@ public class FeedforwardXorIT {
 	public void setUp() {
 		network = new FeedforwardBuilder()
 				.setInput(2)
-				.usingActivationFunction(new ThresholdActivation(Polarisation.UNIPOLAR))
-				.addHidden(2)
-				.setOutput(1)
-				.build().create();
+				.addHidden(2, new ThresholdActivation(Polarisation.UNIPOLAR))
+				.setOutput(1, new ThresholdActivation(Polarisation.UNIPOLAR))
+				.buildNetwork();
 
 		network.getAllConnections().setWeights(Arrays.asList(
 				2d, 2d, -1d, // Connections to H0 from I0, I1 and IB respectively, makes an OR of the inputs

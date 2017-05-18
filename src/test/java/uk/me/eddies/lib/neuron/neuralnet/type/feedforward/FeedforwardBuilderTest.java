@@ -37,16 +37,15 @@ public class FeedforwardBuilderTest {
 	@Test
 	public void shouldReturnSameBuilderFromEachCall() {
 		assertThat(systemUnderTest.setInput(3), sameInstance(systemUnderTest));
-		assertThat(systemUnderTest.usingActivationFunction(activation), sameInstance(systemUnderTest));
-		assertThat(systemUnderTest.addHidden(3), sameInstance(systemUnderTest));
-		assertThat(systemUnderTest.setOutput(3), sameInstance(systemUnderTest));
+		assertThat(systemUnderTest.addHidden(3, activation), sameInstance(systemUnderTest));
+		assertThat(systemUnderTest.setOutput(3, activation), sameInstance(systemUnderTest));
 	}
 
 	@Test
 	public void shouldSuccessfullyCreateNetworkWithNoHiddenLayers() {
 		result = systemUnderTest
 				.setInput(2)
-				.usingActivationFunction(activation).setOutput(4)
+				.setOutput(4, activation)
 				.build();
 
 		assertThat(result.getLayers(), contains(Arrays.asList(
@@ -63,9 +62,8 @@ public class FeedforwardBuilderTest {
 	public void shouldSuccessfullyCreateNetworkWithSingleHiddenLayer() {
 		result = systemUnderTest
 				.setInput(2)
-				.usingActivationFunction(activation)
-				.addHidden(5)
-				.setOutput(4)
+				.addHidden(5, activation)
+				.setOutput(4, activation)
 				.build();
 
 		assertThat(result.getLayers(), contains(Arrays.asList(
@@ -86,12 +84,10 @@ public class FeedforwardBuilderTest {
 	public void shouldSuccessfullyCreateNetworkWithMultipleHiddenLayers() {
 		result = systemUnderTest
 				.setInput(2)
-				.usingActivationFunction(activation)
-				.addHidden(5)
-				.addHidden(7)
-				.usingActivationFunction(otherActivation)
-				.addHidden(9)
-				.setOutput(4)
+				.addHidden(5, activation)
+				.addHidden(7, activation)
+				.addHidden(9, otherActivation)
+				.setOutput(4, otherActivation)
 				.build();
 
 		assertThat(result.getLayers(), contains(Arrays.asList(
@@ -117,7 +113,7 @@ public class FeedforwardBuilderTest {
 	@Test(expected = IllegalStateException.class)
 	public void shouldFailToCreateNetworkWithoutInputLayer() {
 		systemUnderTest
-				.usingActivationFunction(activation).setOutput(4)
+				.setOutput(4, activation)
 				.build();
 	}
 
@@ -128,14 +124,36 @@ public class FeedforwardBuilderTest {
 				.build();
 	}
 
-	@Test(expected = IllegalStateException.class)
+	@Test(expected = NullPointerException.class)
 	public void shouldFailToAddHiddenLayerWithoutActivationFunction() {
-		systemUnderTest.addHidden(3);
+		systemUnderTest.addHidden(3, null);
 	}
 
-	@Test(expected = IllegalStateException.class)
+	@Test(expected = NullPointerException.class)
 	public void shouldFailToSetOutputLayerWithoutActivationFunction() {
-		systemUnderTest.setOutput(3);
+		systemUnderTest.setOutput(3, null);
+	}
+
+	@Test
+	public void shouldDirectlyCreateNetworkWithBuiltConfiguration() {
+		result = (FeedforwardConfiguration) systemUnderTest
+				.setInput(2)
+				.addHidden(5, activation)
+				.setOutput(4, activation)
+				.buildNetwork().getConfiguration();
+
+		assertThat(result.getLayers(), contains(Arrays.asList(
+				instanceOf(InputLayer.class),
+				instanceOf(HiddenLayer.class),
+				instanceOf(OutputLayer.class))));
+
+		List<LayerConfiguration<?>> layers = new ArrayList<>(result.getLayers());
+		Layer inputs = makeTestLayer(layers.get(0), 3, null); // Remember bias neuron
+		Layer hidden = makeTestLayer(layers.get(1), 6, inputs);
+		Layer outputs = makeTestLayer(layers.get(2), 4, inputs);
+
+		verifyActivationFunction(hidden, activation);
+		verifyActivationFunction(outputs, activation);
 	}
 
 	private Layer makeTestLayer(LayerConfiguration<?> config, int expectedSize, Layer inputLayer) {
