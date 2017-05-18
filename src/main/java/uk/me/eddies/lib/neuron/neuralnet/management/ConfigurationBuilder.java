@@ -3,6 +3,7 @@
 package uk.me.eddies.lib.neuron.neuralnet.management;
 
 import uk.me.eddies.lib.neuron.neuralnet.NetworkConfiguration;
+import uk.me.eddies.lib.neuron.neuralnet.NeuralNetwork;
 
 /**
  * Builder for {@link NetworkConfiguration}s.
@@ -10,4 +11,6 @@ import uk.me.eddies.lib.neuron.neuralnet.NetworkConfiguration;
 public interface ConfigurationBuilder {
 
 	public NetworkConfiguration build();
+
+	public NeuralNetwork buildNetwork();
 }

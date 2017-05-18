@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.stream.Stream;
 import uk.me.eddies.lib.neuron.neuralnet.ActivationFunction;
+import uk.me.eddies.lib.neuron.neuralnet.NeuralNetwork;
 import uk.me.eddies.lib.neuron.neuralnet.management.ConfigurationBuilder;
 
 /**
@@ -54,5 +55,10 @@ public class FeedforwardBuilder implements ConfigurationBuilder {
 				concat(Stream.of(requireNonNull(input)), concat(hidden.stream(), Stream.of(requireNonNull(output))))
 						.collect(toCollection(LinkedHashSet::new));
 		return new FeedforwardConfiguration(layers);
+	}
+
+	@Override
+	public NeuralNetwork buildNetwork() {
+		return build().create();
 	}
 }

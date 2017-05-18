@@ -138,6 +138,29 @@ public class FeedforwardBuilderTest {
 		systemUnderTest.setOutput(3);
 	}
 
+	@Test
+	public void shouldDirectlyCreateNetworkWithBuiltConfiguration() {
+		result = (FeedforwardConfiguration) systemUnderTest
+				.setInput(2)
+				.usingActivationFunction(activation)
+				.addHidden(5)
+				.setOutput(4)
+				.buildNetwork().getConfiguration();
+
+		assertThat(result.getLayers(), contains(Arrays.asList(
+				instanceOf(InputLayer.class),
+				instanceOf(HiddenLayer.class),
+				instanceOf(OutputLayer.class))));
+
+		List<LayerConfiguration<?>> layers = new ArrayList<>(result.getLayers());
+		Layer inputs = makeTestLayer(layers.get(0), 3, null); // Remember bias neuron
+		Layer hidden = makeTestLayer(layers.get(1), 6, inputs);
+		Layer outputs = makeTestLayer(layers.get(2), 4, inputs);
+
+		verifyActivationFunction(hidden, activation);
+		verifyActivationFunction(outputs, activation);
+	}
+
 	private Layer makeTestLayer(LayerConfiguration<?> config, int expectedSize, Layer inputLayer) {
 		Layer layer = config.buildLayer(Optional.ofNullable(inputLayer));
 		assertThat(layer.getNeurons(), hasSize(expectedSize));
