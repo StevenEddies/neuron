@@ -30,7 +30,7 @@ public class FeedforwardXorIT {
 				.usingActivationFunction(new ThresholdActivation(Polarisation.UNIPOLAR))
 				.addHidden(2)
 				.setOutput(1)
-				.build().create();
+				.buildNetwork();
 
 		network.getAllConnections().setWeights(Arrays.asList(
 				2d, 2d, -1d, // Connections to H0 from I0, I1 and IB respectively, makes an OR of the inputs
