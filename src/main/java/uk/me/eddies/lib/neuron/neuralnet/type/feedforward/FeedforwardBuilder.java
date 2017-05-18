@@ -20,39 +20,28 @@ public class FeedforwardBuilder implements ConfigurationBuilder {
 	private InputLayer input = null;
 	private Collection<HiddenLayer> hidden = new LinkedHashSet<>();
 	private OutputLayer output = null;
-	private ActivationFunction activationFunction = null;
 
 	public FeedforwardBuilder setInput(int size) {
 		input = new InputLayer(size);
 		return this;
 	}
 
-	public FeedforwardBuilder addHidden(int size) {
-		if (activationFunction == null)
-			throw new IllegalStateException("Adding a hidden layer requires an activation function to be set first.");
-		hidden.add(new HiddenLayer(size, activationFunction));
+	public FeedforwardBuilder addHidden(int size, ActivationFunction activationFunction) {
+		hidden.add(new HiddenLayer(size, requireNonNull(activationFunction)));
 		return this;
 	}
 
-	public FeedforwardBuilder setOutput(int size) {
-		if (activationFunction == null)
-			throw new IllegalStateException(
-					"Setting the output layer requires an activation function to be set first.");
-		output = new OutputLayer(size, activationFunction);
-		return this;
-	}
-
-	public FeedforwardBuilder usingActivationFunction(ActivationFunction activationFunction) {
-		this.activationFunction = activationFunction;
+	public FeedforwardBuilder setOutput(int size, ActivationFunction activationFunction) {
+		output = new OutputLayer(size, requireNonNull(activationFunction));
 		return this;
 	}
 
 	@Override
 	public FeedforwardConfiguration build() {
 		if (input == null || output == null)
-			throw new IllegalStateException("Input and output layers must bot be set before a network can be built.");
+			throw new IllegalStateException("Input and output layers must both be set before a network can be built.");
 		Collection<LayerConfiguration<?>> layers =
-				concat(Stream.of(requireNonNull(input)), concat(hidden.stream(), Stream.of(requireNonNull(output))))
+				concat(Stream.of(input), concat(hidden.stream(), Stream.of(output)))
 						.collect(toCollection(LinkedHashSet::new));
 		return new FeedforwardConfiguration(layers);
 	}
