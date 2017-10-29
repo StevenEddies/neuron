@@ -20,9 +20,9 @@ node {
 	stage 'Assemble'
 	runGradle('assemble')
 	
-	if (isReleaseBranch()) {
 		stage 'Publish'
 		runGradle('publish')
+	if (isReleaseBranch()) {
 		scmTag()
 	}
 	
