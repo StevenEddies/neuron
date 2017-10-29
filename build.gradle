@@ -90,8 +90,8 @@ publishing {
 		maven {
 			url "https://jenkins.eddies.me.uk/archiva/repository/internal/"
 			credentials {
-				username project.findProperty("archivaUsername")
-				password project.findProperty("archivaPassword")
+				username project.findProperty("repoUsername")
+				password project.findProperty("repoPassword")
 			}
 		}
 	}
