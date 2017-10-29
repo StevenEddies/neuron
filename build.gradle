@@ -88,10 +88,10 @@ publishing {
 	}
 	repositories {
 		maven {
-			url "https://jenkins.eddies.me.uk/archiva/repository/internal/"
+			url "https://api.bintray.com/maven/steveneddies/libraries/neuron/;publish=1"
 			credentials {
-				username project.findProperty("archivaUsername")
-				password project.findProperty("archivaPassword")
+				username project.findProperty("repoUsername")
+				password project.findProperty("repoPassword")
 			}
 		}
 	}

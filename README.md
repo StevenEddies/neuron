@@ -10,15 +10,14 @@ Artificial intelligence library for Java. **Currently in development and not sui
 
 I am not currently looking for contributors for this project's development. However, if it interests you please feel free to get in touch (see below).
 
-If you would like to suggest a feature or report a bug, please use the [issue tracker](https://github.com/StevenEddies/sudoku/issues).
+If you would like to suggest a feature or report a bug, please use the [issue tracker](https://github.com/StevenEddies/neuron/issues).
 
 
 ### Links
 
  * Master SCM repository: https://github.com/StevenEddies/neuron
  * Issue tracker: https://github.com/StevenEddies/neuron/issues
- * CI server: https://jenkins.eddies.me.uk/job/neuron/
- * Artefact repository: https://jenkins.eddies.me.uk/archiva/repository/internal/
+ * Artefact repository: https://dl.bintray.com/steveneddies/libraries
 
 
 ### Building
