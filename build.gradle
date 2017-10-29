@@ -88,7 +88,7 @@ publishing {
 	}
 	repositories {
 		maven {
-			url "https://jenkins.eddies.me.uk/archiva/repository/internal/"
+			url "https://dl.bintray.com/steveneddies/libraries"
 			credentials {
 				username project.findProperty("repoUsername")
 				password project.findProperty("repoPassword")

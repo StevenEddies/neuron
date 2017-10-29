@@ -64,7 +64,7 @@ void scmTag() {
 }
 
 void runGradle(String tasks) {
-	withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '644d8845-ac90-4f97-a64e-3e840f3584ad', usernameVariable: 'REPO_USERNAME', passwordVariable: 'REPO_PASSWORD']]) {
+	withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '27716c75-2801-40e7-ab0f-f037c286e990', usernameVariable: 'REPO_USERNAME', passwordVariable: 'REPO_PASSWORD']]) {
 		sh 'set +x'
 		sh "./gradlew ${tasks} -PbuildVersion=${version} -PrepoUsername=\$REPO_USERNAME -PrepoPassword=\$REPO_PASSWORD"
 	}
