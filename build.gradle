@@ -88,7 +88,7 @@ publishing {
 	}
 	repositories {
 		maven {
-			url "https://dl.bintray.com/steveneddies/libraries"
+			url "https://api.bintray.com/maven/steveneddies/libraries/neuron/;publish=1"
 			credentials {
 				username project.findProperty("repoUsername")
 				password project.findProperty("repoPassword")
