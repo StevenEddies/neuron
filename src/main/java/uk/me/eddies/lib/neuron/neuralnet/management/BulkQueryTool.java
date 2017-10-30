@@ -25,7 +25,7 @@ public class BulkQueryTool {
 	private final ExecutorService executor;
 	private final ResourcePool<NeuralNetwork> networkPool;
 
-	private List<Double> weights;
+	private volatile List<Double> weights;
 
 	public BulkQueryTool(ExecutorService executor, ResourcePool<NeuralNetwork> networkPool) {
 		this.executor = requireNonNull(executor);

@@ -2,12 +2,13 @@
 
 package uk.me.eddies.lib.neuron.utility.concurrency;
 
+import static java.util.Collections.newSetFromMap;
 import static java.util.Objects.requireNonNull;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Represents a pool of interchangeable resources which may be temporarily acquired by threads.
@@ -19,7 +20,7 @@ public class ResourcePool<ResourceT> {
 
 	public ResourcePool(Collection<ResourceT> resources) {
 		available = new ArrayBlockingQueue<>(resources.size(), true, resources);
-		acquired = new HashSet<>();
+		acquired = newSetFromMap(new ConcurrentHashMap<>());
 	}
 
 	ResourceT acquire() throws InterruptedException {
