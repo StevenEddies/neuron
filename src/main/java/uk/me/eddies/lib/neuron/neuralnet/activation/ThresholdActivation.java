@@ -24,4 +24,14 @@ public class ThresholdActivation implements ActivationFunction {
 	public double applyFunction(double input) {
 		return (input > 0) ? polarisation.getMaximum() : polarisation.getMinimum();
 	}
+
+	@Override
+	public boolean hasGradient() {
+		return false;
+	}
+
+	@Override
+	public double applyGradient(double input) throws UnsupportedOperationException {
+		throw new UnsupportedOperationException("Threshold function is not continuous.");
+	}
 }

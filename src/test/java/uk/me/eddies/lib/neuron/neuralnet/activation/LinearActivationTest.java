@@ -29,4 +29,19 @@ public class LinearActivationTest {
 	public void shouldReturnInput(double input) {
 		assertThat(systemUnderTest.applyFunction(input), equalTo(input));
 	}
+
+	@Test
+	public void shouldHaveGradient() {
+		assertThat(systemUnderTest.hasGradient(), equalTo(true));
+	}
+
+	public Object[] parametersForShouldCalculateGradientAsConstant() {
+		return new Object[] { -100d, -1d, -0.01, 0d, 0.01, 1d, 100d };
+	}
+
+	@Test
+	@Parameters
+	public void shouldCalculateGradientAsConstant(double input) {
+		assertThat(systemUnderTest.applyGradient(input), equalTo(1d));
+	}
 }

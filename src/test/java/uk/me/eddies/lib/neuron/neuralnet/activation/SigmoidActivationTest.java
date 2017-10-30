@@ -87,6 +87,40 @@ public class SigmoidActivationTest {
 		new ThresholdActivation(null);
 	}
 
+	@Test
+	@Parameters(source = Polarisation.class)
+	public void shouldHaveGradient(Polarisation eachPolarisation) {
+		systemUnderTest = new SigmoidActivation(eachPolarisation);
+		assertThat(systemUnderTest.hasGradient(), equalTo(true));
+	}
+
+	public Object[][] parametersForShouldHaveCorrectGradient() {
+		return new Object[][] {
+				{ Polarisation.UNIPOLAR, 2d, 2.000001d },
+				{ Polarisation.UNIPOLAR, 1d, 1.000001d },
+				{ Polarisation.UNIPOLAR, 0.5d, 0.500001d },
+				{ Polarisation.UNIPOLAR, 0d, 0.000001d },
+				{ Polarisation.UNIPOLAR, -1d, -0.999999d },
+				{ Polarisation.BIPOLAR, 2d, 2.000001d },
+				{ Polarisation.BIPOLAR, 1d, 1.000001d },
+				{ Polarisation.BIPOLAR, 0.5d, 0.500001d },
+				{ Polarisation.BIPOLAR, 0d, 0.000001d },
+				{ Polarisation.BIPOLAR, -1d, -0.999999d }
+		};
+	}
+
+	@Test
+	@Parameters
+	public void shouldHaveCorrectGradient(Polarisation eachPolarisation, double x1, double x2) {
+		systemUnderTest = new SigmoidActivation(eachPolarisation);
+		double y1 = systemUnderTest.applyFunction(x1);
+		double y2 = systemUnderTest.applyFunction(x2);
+		double expectedM = (y2 - y1) / (x2 - x1);
+		double medianX = (x1 + x2) / 2;
+
+		assertThat(systemUnderTest.applyGradient(medianX), closeTo(expectedM, 2e-10));
+	}
+
 	private double getMedian(Polarisation polarisation) {
 		return polarisation.getMinimum() + (polarisation.getRange() / 2);
 	}

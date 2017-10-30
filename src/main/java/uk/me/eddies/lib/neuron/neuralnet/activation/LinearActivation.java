@@ -13,4 +13,14 @@ public class LinearActivation implements ActivationFunction {
 	public double applyFunction(double input) {
 		return input;
 	}
+
+	@Override
+	public boolean hasGradient() {
+		return true;
+	}
+
+	@Override
+	public double applyGradient(double input) {
+		return 1d;
+	}
 }

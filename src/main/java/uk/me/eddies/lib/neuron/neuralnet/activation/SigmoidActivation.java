@@ -25,4 +25,19 @@ public class SigmoidActivation implements ActivationFunction {
 		double denominator = 1 + Math.exp(-input);
 		return (polarisation.getRange() / denominator) + polarisation.getMinimum();
 	}
+
+	@Override
+	public boolean hasGradient() {
+		return true;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public double applyGradient(double input) {
+		double numerator = polarisation.getRange() * Math.exp(input);
+		double denominator = Math.pow(Math.exp(input) + 1, 2);
+		return numerator / denominator;
+	}
 }

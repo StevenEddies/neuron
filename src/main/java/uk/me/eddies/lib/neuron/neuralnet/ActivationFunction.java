@@ -8,4 +8,8 @@ package uk.me.eddies.lib.neuron.neuralnet;
 public interface ActivationFunction {
 
 	public double applyFunction(double input);
+
+	public boolean hasGradient();
+
+	public double applyGradient(double input) throws UnsupportedOperationException;
 }

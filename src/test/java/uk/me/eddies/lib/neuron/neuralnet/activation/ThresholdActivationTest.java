@@ -50,4 +50,18 @@ public class ThresholdActivationTest {
 	public void shouldFailToConstructWithoutPolarisation() {
 		new ThresholdActivation(null);
 	}
+
+	@Test
+	@Parameters(source = Polarisation.class)
+	public void shouldNotHaveGradient(Polarisation eachPolarisation) {
+		systemUnderTest = new ThresholdActivation(eachPolarisation);
+		assertThat(systemUnderTest.hasGradient(), equalTo(false));
+	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	@Parameters(source = Polarisation.class)
+	public void shouldFailToApplyGradient(Polarisation eachPolarisation) {
+		systemUnderTest = new ThresholdActivation(eachPolarisation);
+		systemUnderTest.applyGradient(1d);
+	}
 }
