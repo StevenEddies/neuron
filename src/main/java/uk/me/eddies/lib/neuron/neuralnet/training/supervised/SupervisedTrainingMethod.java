@@ -2,6 +2,8 @@
 
 package uk.me.eddies.lib.neuron.neuralnet.training.supervised;
 
+import java.time.Duration;
+import java.util.concurrent.TimeoutException;
 import uk.me.eddies.lib.neuron.neuralnet.NeuralNetwork;
 
 /**
@@ -9,5 +11,6 @@ import uk.me.eddies.lib.neuron.neuralnet.NeuralNetwork;
  */
 public interface SupervisedTrainingMethod {
 
-	public void iterate(NeuralNetwork network, SupervisedTrainingSet trainingSet, SupervisedTrainingSet validationSet);
+	public void run(NeuralNetwork network, SupervisedTrainingSet trainingSet, SupervisedTrainingSet validationSet,
+			double tolerableError, Duration timeout) throws TimeoutException;
 }
