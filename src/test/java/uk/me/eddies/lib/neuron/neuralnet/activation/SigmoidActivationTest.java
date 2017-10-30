@@ -23,16 +23,16 @@ public class SigmoidActivationTest {
 	@Parameters(source = Polarisation.class)
 	public void shouldHaveActivatonBelowMedianWhenInputBelowZero(Polarisation eachPolarisation) {
 		systemUnderTest = new SigmoidActivation(eachPolarisation);
-		assertThat(systemUnderTest.applyAsDouble(-0.01), lessThan(getMedian(eachPolarisation)));
-		assertThat(systemUnderTest.applyAsDouble(-1d), lessThan(systemUnderTest.applyAsDouble(-0.01)));
-		assertThat(systemUnderTest.applyAsDouble(-100d), lessThan(systemUnderTest.applyAsDouble(-1d)));
+		assertThat(systemUnderTest.applyFunction(-0.01), lessThan(getMedian(eachPolarisation)));
+		assertThat(systemUnderTest.applyFunction(-1d), lessThan(systemUnderTest.applyFunction(-0.01)));
+		assertThat(systemUnderTest.applyFunction(-100d), lessThan(systemUnderTest.applyFunction(-1d)));
 	}
 
 	@Test
 	@Parameters(source = Polarisation.class)
 	public void shouldHaveMedianActivatonAtZeroInput(Polarisation eachPolarisation) {
 		systemUnderTest = new SigmoidActivation(eachPolarisation);
-		assertThat(systemUnderTest.applyAsDouble(0d),
+		assertThat(systemUnderTest.applyFunction(0d),
 				closeTo(getMedian(eachPolarisation), ALLOWABLE_ERROR));
 	}
 
@@ -40,39 +40,39 @@ public class SigmoidActivationTest {
 	@Parameters(source = Polarisation.class)
 	public void shouldHaveActivatonAboveMedianWhenInputAboveZero(Polarisation eachPolarisation) {
 		systemUnderTest = new SigmoidActivation(eachPolarisation);
-		assertThat(systemUnderTest.applyAsDouble(0.01), greaterThan(getMedian(eachPolarisation)));
-		assertThat(systemUnderTest.applyAsDouble(1d), greaterThan(systemUnderTest.applyAsDouble(0.01)));
-		assertThat(systemUnderTest.applyAsDouble(100d), greaterThan(systemUnderTest.applyAsDouble(1d)));
+		assertThat(systemUnderTest.applyFunction(0.01), greaterThan(getMedian(eachPolarisation)));
+		assertThat(systemUnderTest.applyFunction(1d), greaterThan(systemUnderTest.applyFunction(0.01)));
+		assertThat(systemUnderTest.applyFunction(100d), greaterThan(systemUnderTest.applyFunction(1d)));
 	}
 
 	@Test
 	@Parameters(source = Polarisation.class)
 	public void shouldApproachMaximumForHighInputs(Polarisation eachPolarisation) {
 		systemUnderTest = new SigmoidActivation(eachPolarisation);
-		assertThat(systemUnderTest.applyAsDouble(1d),
+		assertThat(systemUnderTest.applyFunction(1d),
 				closeTo(eachPolarisation.getMaximum(), 0.27 * eachPolarisation.getRange()));
-		assertThat(systemUnderTest.applyAsDouble(10d),
+		assertThat(systemUnderTest.applyFunction(10d),
 				closeTo(eachPolarisation.getMaximum(), 4.6e-5 * eachPolarisation.getRange()));
-		assertThat(systemUnderTest.applyAsDouble(100d),
+		assertThat(systemUnderTest.applyFunction(100d),
 				closeTo(eachPolarisation.getMaximum(), 3.8e-44 * eachPolarisation.getRange()));
-		assertThat(systemUnderTest.applyAsDouble(1000d), closeTo(eachPolarisation.getMaximum(), Double.MIN_VALUE));
-		assertThat(systemUnderTest.applyAsDouble(10000d), closeTo(eachPolarisation.getMaximum(), Double.MIN_VALUE));
-		assertThat(systemUnderTest.applyAsDouble(100000d), closeTo(eachPolarisation.getMaximum(), Double.MIN_VALUE));
+		assertThat(systemUnderTest.applyFunction(1000d), closeTo(eachPolarisation.getMaximum(), Double.MIN_VALUE));
+		assertThat(systemUnderTest.applyFunction(10000d), closeTo(eachPolarisation.getMaximum(), Double.MIN_VALUE));
+		assertThat(systemUnderTest.applyFunction(100000d), closeTo(eachPolarisation.getMaximum(), Double.MIN_VALUE));
 	}
 
 	@Test
 	@Parameters(source = Polarisation.class)
 	public void shouldApproachMinimumForLowInputs(Polarisation eachPolarisation) {
 		systemUnderTest = new SigmoidActivation(eachPolarisation);
-		assertThat(systemUnderTest.applyAsDouble(-1d),
+		assertThat(systemUnderTest.applyFunction(-1d),
 				closeTo(eachPolarisation.getMinimum(), 0.27 * eachPolarisation.getRange()));
-		assertThat(systemUnderTest.applyAsDouble(-10d),
+		assertThat(systemUnderTest.applyFunction(-10d),
 				closeTo(eachPolarisation.getMinimum(), 4.6e-5 * eachPolarisation.getRange()));
-		assertThat(systemUnderTest.applyAsDouble(-100d),
+		assertThat(systemUnderTest.applyFunction(-100d),
 				closeTo(eachPolarisation.getMinimum(), 3.8e-44 * eachPolarisation.getRange()));
-		assertThat(systemUnderTest.applyAsDouble(-1000d), closeTo(eachPolarisation.getMinimum(), Double.MIN_VALUE));
-		assertThat(systemUnderTest.applyAsDouble(-10000d), closeTo(eachPolarisation.getMinimum(), Double.MIN_VALUE));
-		assertThat(systemUnderTest.applyAsDouble(-100000d), closeTo(eachPolarisation.getMinimum(), Double.MIN_VALUE));
+		assertThat(systemUnderTest.applyFunction(-1000d), closeTo(eachPolarisation.getMinimum(), Double.MIN_VALUE));
+		assertThat(systemUnderTest.applyFunction(-10000d), closeTo(eachPolarisation.getMinimum(), Double.MIN_VALUE));
+		assertThat(systemUnderTest.applyFunction(-100000d), closeTo(eachPolarisation.getMinimum(), Double.MIN_VALUE));
 	}
 
 	@Test

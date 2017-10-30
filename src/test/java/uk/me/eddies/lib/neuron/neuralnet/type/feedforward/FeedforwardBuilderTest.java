@@ -165,6 +165,6 @@ public class FeedforwardBuilderTest {
 	private void verifyActivationFunction(Layer layer, ActivationFunction mockActivationFunction) {
 		reset(mockActivationFunction);
 		layer.getNeurons().iterator().next().getValue();
-		verify(mockActivationFunction).applyAsDouble(Mockito.anyDouble());
+		verify(mockActivationFunction).applyFunction(Mockito.anyDouble());
 	}
 }

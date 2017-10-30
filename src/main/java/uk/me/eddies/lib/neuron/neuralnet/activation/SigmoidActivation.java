@@ -21,7 +21,7 @@ public class SigmoidActivation implements ActivationFunction {
 	}
 
 	@Override
-	public double applyAsDouble(double input) {
+	public double applyFunction(double input) {
 		double denominator = 1 + Math.exp(-input);
 		return (polarisation.getRange() / denominator) + polarisation.getMinimum();
 	}

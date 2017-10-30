@@ -10,7 +10,7 @@ import uk.me.eddies.lib.neuron.neuralnet.ActivationFunction;
 public class LinearActivation implements ActivationFunction {
 
 	@Override
-	public double applyAsDouble(double input) {
+	public double applyFunction(double input) {
 		return input;
 	}
 }

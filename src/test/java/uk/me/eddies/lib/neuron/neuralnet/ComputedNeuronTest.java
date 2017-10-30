@@ -39,7 +39,7 @@ public class ComputedNeuronTest {
 	public void shouldComputeCorrectValue() {
 		when(connection1.getWeightedConnecteeValue()).thenReturn(CONNECTION_1_VALUE);
 		when(connection2.getWeightedConnecteeValue()).thenReturn(CONNECTION_2_VALUE);
-		when(activationFunction.applyAsDouble(CONNECTION_1_VALUE + CONNECTION_2_VALUE))
+		when(activationFunction.applyFunction(CONNECTION_1_VALUE + CONNECTION_2_VALUE))
 				.thenReturn(ACTIVATED_VALUE);
 
 		assertThat(systemUnderTest.getValue(), equalTo(ACTIVATED_VALUE));
@@ -91,7 +91,7 @@ public class ComputedNeuronTest {
 		systemUnderTest.getConnections().forEach(c -> c.setWeight(1.0));
 		when(neuron1.getValue()).thenReturn(CONNECTION_1_VALUE);
 		when(neuron2.getValue()).thenReturn(CONNECTION_2_VALUE);
-		when(activationFunction.applyAsDouble(CONNECTION_1_VALUE + CONNECTION_2_VALUE))
+		when(activationFunction.applyFunction(CONNECTION_1_VALUE + CONNECTION_2_VALUE))
 				.thenReturn(ACTIVATED_VALUE);
 
 		assertThat(systemUnderTest.getValue(), equalTo(ACTIVATED_VALUE));

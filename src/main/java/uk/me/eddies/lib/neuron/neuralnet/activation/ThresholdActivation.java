@@ -21,7 +21,7 @@ public class ThresholdActivation implements ActivationFunction {
 	}
 
 	@Override
-	public double applyAsDouble(double input) {
+	public double applyFunction(double input) {
 		return (input > 0) ? polarisation.getMaximum() : polarisation.getMinimum();
 	}
 }

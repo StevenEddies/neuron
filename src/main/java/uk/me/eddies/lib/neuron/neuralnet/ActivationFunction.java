@@ -2,13 +2,10 @@
 
 package uk.me.eddies.lib.neuron.neuralnet;
 
-import java.util.function.DoubleUnaryOperator;
-
 /**
  * Represents an activation function between a neuron's input and output value.
  */
-@FunctionalInterface
-public interface ActivationFunction extends DoubleUnaryOperator {
+public interface ActivationFunction {
 
-	// Inherits the method
+	public double applyFunction(double input);
 }

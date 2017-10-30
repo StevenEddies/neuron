@@ -96,8 +96,8 @@ public class OutputLayerTest {
 	public void shouldHaveOutputInterfaceLinkedToNeurons() {
 		when(prevNeuron1.getValue()).thenReturn(5d);
 		when(prevNeuron2.getValue()).thenReturn(10d);
-		when(activationFunction.applyAsDouble(5d)).thenReturn(6d);
-		when(activationFunction.applyAsDouble(10d)).thenReturn(11d);
+		when(activationFunction.applyFunction(5d)).thenReturn(6d);
+		when(activationFunction.applyFunction(10d)).thenReturn(11d);
 		Iterator<Connection> connectionIt = result.getNeurons().stream()
 				.flatMap(n -> n.getConnections().stream()).iterator();
 		connectionIt.next().setWeight(1d); // 1 -> 1

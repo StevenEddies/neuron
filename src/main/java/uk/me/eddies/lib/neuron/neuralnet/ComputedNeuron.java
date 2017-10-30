@@ -36,7 +36,7 @@ public class ComputedNeuron implements Neuron {
 		double inputValue = connections.stream()
 				.mapToDouble(Connection::getWeightedConnecteeValue)
 				.sum();
-		return activationFunction.applyAsDouble(inputValue);
+		return activationFunction.applyFunction(inputValue);
 	}
 
 	@Override

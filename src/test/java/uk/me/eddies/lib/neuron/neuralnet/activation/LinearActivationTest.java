@@ -27,6 +27,6 @@ public class LinearActivationTest {
 	@Test
 	@Parameters
 	public void shouldReturnInput(double input) {
-		assertThat(systemUnderTest.applyAsDouble(input), equalTo(input));
+		assertThat(systemUnderTest.applyFunction(input), equalTo(input));
 	}
 }

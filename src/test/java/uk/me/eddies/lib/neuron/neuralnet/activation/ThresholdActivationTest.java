@@ -18,25 +18,25 @@ public class ThresholdActivationTest {
 	@Parameters(source = Polarisation.class)
 	public void shouldUseMinimumActivatonBelowZeroInput(Polarisation eachPolarisation) {
 		systemUnderTest = new ThresholdActivation(eachPolarisation);
-		assertThat(systemUnderTest.applyAsDouble(-0.01), equalTo(eachPolarisation.getMinimum()));
-		assertThat(systemUnderTest.applyAsDouble(-1d), equalTo(eachPolarisation.getMinimum()));
-		assertThat(systemUnderTest.applyAsDouble(-100d), equalTo(eachPolarisation.getMinimum()));
+		assertThat(systemUnderTest.applyFunction(-0.01), equalTo(eachPolarisation.getMinimum()));
+		assertThat(systemUnderTest.applyFunction(-1d), equalTo(eachPolarisation.getMinimum()));
+		assertThat(systemUnderTest.applyFunction(-100d), equalTo(eachPolarisation.getMinimum()));
 	}
 
 	@Test
 	@Parameters(source = Polarisation.class)
 	public void shouldUseMinimumActivatonAtZeroInput(Polarisation eachPolarisation) {
 		systemUnderTest = new ThresholdActivation(eachPolarisation);
-		assertThat(systemUnderTest.applyAsDouble(0d), equalTo(eachPolarisation.getMinimum()));
+		assertThat(systemUnderTest.applyFunction(0d), equalTo(eachPolarisation.getMinimum()));
 	}
 
 	@Test
 	@Parameters(source = Polarisation.class)
 	public void shouldUseMaximumActivatonAboveZeroInput(Polarisation eachPolarisation) {
 		systemUnderTest = new ThresholdActivation(eachPolarisation);
-		assertThat(systemUnderTest.applyAsDouble(0.01), equalTo(eachPolarisation.getMaximum()));
-		assertThat(systemUnderTest.applyAsDouble(1d), equalTo(eachPolarisation.getMaximum()));
-		assertThat(systemUnderTest.applyAsDouble(100d), equalTo(eachPolarisation.getMaximum()));
+		assertThat(systemUnderTest.applyFunction(0.01), equalTo(eachPolarisation.getMaximum()));
+		assertThat(systemUnderTest.applyFunction(1d), equalTo(eachPolarisation.getMaximum()));
+		assertThat(systemUnderTest.applyFunction(100d), equalTo(eachPolarisation.getMaximum()));
 	}
 
 	@Test
