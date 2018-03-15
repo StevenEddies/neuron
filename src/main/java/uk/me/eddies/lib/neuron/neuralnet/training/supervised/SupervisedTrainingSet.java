@@ -3,6 +3,7 @@
 package uk.me.eddies.lib.neuron.neuralnet.training.supervised;
 
 import static java.util.Collections.unmodifiableList;
+import static java.util.stream.Collectors.toList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,5 +22,17 @@ public class SupervisedTrainingSet {
 
 	public List<SupervisedTrainingRecord> getRecords() {
 		return records;
+	}
+
+	public List<List<Double>> getInputs() {
+		return getRecords().stream()
+				.map(SupervisedTrainingRecord::getInputs)
+				.collect(toList());
+	}
+
+	public List<List<Double>> getExpectedOutputs() {
+		return getRecords().stream()
+				.map(SupervisedTrainingRecord::getExpectedOutputs)
+				.collect(toList());
 	}
 }
