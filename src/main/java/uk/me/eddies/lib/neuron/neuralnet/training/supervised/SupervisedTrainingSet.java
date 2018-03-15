@@ -1,4 +1,4 @@
-/* Copyright Steven Eddies, 2017. See the LICENCE file in the project root. */
+/* Copyright Steven Eddies, 2017-18. See the LICENCE file in the project root. */
 
 package uk.me.eddies.lib.neuron.neuralnet.training.supervised;
 
